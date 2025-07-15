@@ -15,8 +15,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_uraken4 }}
-          password: ${{ secrets.DOCKER_dckr_pat_AskIUhQ5cGf4HxL8dmToU1YLGvc }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push frontend image
         run: |
