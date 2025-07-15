@@ -1,0 +1,29 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_uraken4 }}
+          password: ${{ secrets.DOCKER_dckr_pat_AskIUhQ5cGf4HxL8dmToU1YLGvc }}
+
+      - name: Build and push frontend image
+        run: |
+          docker build -t uraken4/devops-demo-frontend:latest ./frontend
+          docker push uraken4/devops-demo-frontend:latest
+
+      - name: Build and push backend image
+        run: |
+          docker build -t uraken4/devops-demo-backend:latest ./backend
+          docker push uraken4/devops-demo-backend:latest
