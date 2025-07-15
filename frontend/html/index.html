@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevOps Demo</title>
+</head>
+<body>
+    <h1>Welcome to my DevOps Demo</h1>
+    <p>Fetching message from API...</p>
+    <div id="message"></div>
+    <script>
+        fetch('/api/message')
+            .then(response => response.json())
+            .then(data => document.getElementById('message').innerText = data.message)
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
