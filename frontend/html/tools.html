@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas DevOps - Potencia tu Éxito</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #1e3c72;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .tools-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            width: 85%;
+            max-width: 900px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .tool-card {
+            background: #f5f5f5;
+            margin: 25px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+        .tool-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        .example-link {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .example-link:hover {
+            color: #1e3c72;
+        }
+
+        /* Estilos para el overlay y las ventanas de ejemplo */
+        .modal-overlay {
+            display: none; /* Por defecto oculto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+        }
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .example-window {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            max-width: 550px; /* Aumentado para contenido más amplio */
+            width: 90%; /* Ajuste para mejor responsividad */
+            text-align: center; /* Centrar contenido del ejemplo */
+            animation: popIn 0.3s ease-in;
+            border: 2px solid #2a5298;
+            pointer-events: auto;
+        }
+        .example-window.active {
+            display: block;
+        }
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        .close-button {
+            background-color: #2a5298;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.3s;
+            pointer-events: auto;
+        }
+        .close-button:hover {
+            background-color: #1e3c72;
+            transform: translateY(-2px);
+        }
+        
+        a.back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #2a5298;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a.back-link:hover {
+            background-color: #2a5298;
+            color: white;
+        }
+        .highlight {
+            color: #2a5298;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* --- Estilos específicos para los ejemplos dinámicos --- */
+        .example-content {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eef;
+            border-radius: 8px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+        .example-content pre {
+            white-space: pre-wrap; /* Permite que el texto se ajuste */
+            word-wrap: break-word; /* Rompe palabras largas */
+        }
+        .example-action-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        .example-action-button:hover {
+            background-color: #45a049;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin-top: 15px;
+            height: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #2a5298;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            transition: width 0.5s ease-in-out;
+        }
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 5px;
+            border-left: 3px solid transparent;
+            word-break: break-all; /* Asegura que el texto largo se rompa */
+        }
+        .log-entry.error {
+            border-left-color: #d9534f;
+            background-color: #fbecec;
+        }
+        .log-entry.success {
+            border-left-color: #5cb85c;
+            background-color: #eaf7ea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DevOps Tools - Herramientas que Transforman</h1>
+        <p>Eleva tu desarrollo, despliegue y monitoreo con soluciones de vanguardia.</p>
+        <!-- Botón de cerrar sesión eliminado -->
+    </header>
+    <main>
+        <div class="tools-container">
+            <h2>Transforma tu Flujo DevOps</h2>
+            <p>Nuestras herramientas te ofrecen <span class="highlight">control total</span> para optimizar procesos, reducir errores y liderar proyectos con confianza.</p>
+            <p>Explora una demo de nuestras herramientas a continuación.</p>
+            
+            <div class="tool-card">
+                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <path d="M7 7h10v10H7z"/>
+                </svg>
+                <div>
+                    <h3>Herramienta 1: Monitor de Recursos</h3>
+                    <p>Visualiza el rendimiento en tiempo real. Ahorra hasta un <span class="highlight">30% en costos</span> al detectar cuellos de botella al instante.</p>
+                    <span class="example-link" data-tool="monitor">Explorar Ejemplo</span>
+                </div>
+            </div>
+            <div class="tool-card">
+                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12h8M12 8v8"/>
+                </svg>
+                <div>
+                    <h3>Herramienta 2: Analizador de Logs</h3>
+                    <p>Detecta problemas críticos en segundos. Reduce el tiempo de resolución en un <span class="highlight">50%</span> y mejora la seguridad.</p>
+                    <span class="example-link" data-tool="analizador">Explorar Ejemplo</span>
+                </div>
+            </div>
+            <div class="tool-card">
+                <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                </svg>
+                <div>
+                    <h3>Herramienta 3: Asistente de Despliegue</h3>
+                    <p>Automatiza despliegues sin errores. Lanza actualizaciones <span class="highlight">10 veces más rápido</span>.</p>
+                    <span class="example-link" data-tool="asistente">Explorar Ejemplo</span>
+                </div>
+            </div>
+            <a href="index.html" class="back-link">Volver al Inicio</a>
+            
+            <!-- Overlay para los modales -->
+            <div class="modal-overlay" onclick="closeModals()"></div>
+
+            <!-- Ventanas de ejemplo (solo HTML, el JS las controla) -->
+            <div id="ejemplo-monitor" class="example-window">
+                <h4>Ejemplo: Monitor de Recursos</h4>
+                <p>Simulación de uso de CPU en tiempo real:</p>
+                <div class="example-content">
+                    <p id="cpu-status">CPU: <strong>75%</strong> (Normal)</p>
+                    <div class="progress-bar-container">
+                        <div id="cpu-bar" class="progress-bar" style="width: 75%;"></div>
+                    </div>
+                    <button class="example-action-button" onclick="simulateScaling()">Simular Escalamiento</button>
+                    <p id="scaling-message" style="margin-top: 10px; color: green; display: none;">Recursos escalados exitosamente. CPU al 30%.</p>
+                </div>
+                <button class="close-button" onclick="closeModals()">Volver</button>
+            </div>
+
+            <div id="ejemplo-analizador" class="example-window">
+                <h4>Ejemplo: Analizador de Logs</h4>
+                <p>Detecta y resuelve anomalías en tus logs:</p>
+                <div class="example-content">
+                    <div id="log-display">
+                        <div class="log-entry">[2025-07-22 10:01:35] INFO: User 'admin' logged in from 192.168.1.10</div>
+                        <div class="log-entry error" id="error-log-entry">[2025-07-22 10:02:10] ERROR: Failed login attempt for user 'devops_user' from 203.0.113.42</div>
+                        <div class="log-entry">[2025-07-22 10:02:45] INFO: Data backup initiated.</div>
+                    </div>
+                    <button class="example-action-button" onclick="resolveLogError()">Resolver Problema</button>
+                    <p id="resolution-message" style="margin-top: 10px; color: green; display: none;">Problema de login resuelto. Alerta desactivada.</p>
+                </div>
+                <button class="close-button" onclick="closeModals()">Volver</button>
+            </div>
+
+            <div id="ejemplo-asistente" class="example-window">
+                <h4>Ejemplo: Asistente de Despliegue</h4>
+                <p>Automatiza tu pipeline de CI/CD:</p>
+                <div class="example-content">
+                    <p id="deployment-status">Estado: Listo para iniciar despliegue.</p>
+                    <div class="progress-bar-container">
+                        <div id="deployment-bar" class="progress-bar" style="width: 0%;">0%</div>
+                    </div>
+                    <button class="example-action-button" onclick="startDeployment()">Iniciar Despliegue</button>
+                    <p id="deployment-message" style="margin-top: 10px; color: green; display: none;">Despliegue completado exitosamente en 15 segundos.</p>
+                </div>
+                <button class="close-button" onclick="closeModals()">Volver</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025 DevOps Tools. Tu aliado en la era digital.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalOverlay = document.querySelector('.modal-overlay');
+
+            // Función para cerrar todas las ventanas modales y el overlay
+            window.closeModals = function() {
+                document.querySelectorAll('.example-window').forEach(el => {
+                    el.classList.remove('active');
+                });
+                modalOverlay.classList.remove('active'); // Ocultar el overlay
+                resetExamples(); // Restablecer el estado de los ejemplos al cerrar
+            };
+
+            // Manejar clics en "Explorar Ejemplo"
+            document.querySelectorAll('.example-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const tool = this.getAttribute('data-tool');
+                    
+                    closeModals(); // Cierra cualquier modal abierto y el overlay
+                    
+                    // Siempre muestra el ejemplo, sin verificar isLoggedIn ni nada.
+                    document.getElementById(`ejemplo-${tool}`).classList.add('active');
+                    modalOverlay.classList.add('active'); // Mostrar el overlay
+                });
+            });
+
+            // --- Funciones para los ejemplos dinámicos ---
+
+            // Monitor de Recursos
+            window.simulateScaling = function() {
+                const cpuBar = document.getElementById('cpu-bar');
+                const cpuStatus = document.getElementById('cpu-status');
+                const scalingMessage = document.getElementById('scaling-message');
+
+                cpuBar.style.width = '30%';
+                cpuBar.style.backgroundColor = '#5cb85c'; // Verde para indicar éxito
+                cpuStatus.innerHTML = 'CPU: <strong>30%</strong> (Optimizado)';
+                scalingMessage.style.display = 'block';
+            };
+
+            // Analizador de Logs
+            window.resolveLogError = function() {
+                const errorLogEntry = document.getElementById('error-log-entry');
+                const resolutionMessage = document.getElementById('resolution-message');
+
+                errorLogEntry.classList.remove('error');
+                errorLogEntry.classList.add('success');
+                errorLogEntry.innerHTML = '[2025-07-22 10:02:10] INFO: Login issue for user \'devops_user\' resolved. Access granted.';
+                resolutionMessage.style.display = 'block';
+            };
+
+            // Asistente de Despliegue
+            window.startDeployment = function() {
+                const deploymentBar = document.getElementById('deployment-bar');
+                const deploymentStatus = document.getElementById('deployment-status');
+                const deploymentMessage = document.getElementById('deployment-message');
+                const deployButton = document.querySelector('#ejemplo-asistente .example-action-button');
+
+                deployButton.disabled = true;
+                deploymentStatus.textContent = 'Estado: Iniciando despliegue...';
+                deploymentMessage.style.display = 'none';
+                deploymentBar.style.width = '0%';
+                deploymentBar.textContent = '0%';
+
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    if (progress <= 100) {
+                        deploymentBar.style.width = `${progress}%`;
+                        deploymentBar.textContent = `${progress}%`;
+                        deploymentStatus.textContent = `Estado: Despliegue en progreso... ${progress}%`;
+                    } else {
+                        clearInterval(interval);
+                        deploymentStatus.textContent = 'Estado: Despliegue completado.';
+                        deploymentMessage.style.display = 'block';
+                        deployButton.disabled = false;
+                    }
+                }, 150); // Simula el progreso cada 150ms
+            };
+
+            // Función para restablecer el estado de los ejemplos al cerrar el modal
+            function resetExamples() {
+                // Monitor de Recursos
+                const cpuBar = document.getElementById('cpu-bar');
+                const cpuStatus = document.getElementById('cpu-status');
+                const scalingMessage = document.getElementById('scaling-message');
+                if (cpuBar) { // Asegura que los elementos existan antes de manipularlos
+                    cpuBar.style.width = '75%';
+                    cpuBar.style.backgroundColor = '#2a5298';
+                    cpuStatus.innerHTML = 'CPU: <strong>75%</strong> (Normal)';
+                    scalingMessage.style.display = 'none';
+                }
+
+                // Analizador de Logs
+                const errorLogEntry = document.getElementById('error-log-entry');
+                const resolutionMessage = document.getElementById('resolution-message');
+                if (errorLogEntry) {
+                    errorLogEntry.classList.remove('success');
+                    errorLogEntry.classList.add('error');
+                    errorLogEntry.innerHTML = '[2025-07-22 10:02:10] ERROR: Failed login attempt for user \'devops_user\' from 203.0.113.42';
+                    resolutionMessage.style.display = 'none';
+                }
+
+                // Asistente de Despliegue
+                const deploymentBar = document.getElementById('deployment-bar');
+                const deploymentStatus = document.getElementById('deployment-status');
+                const deploymentMessage = document.getElementById('deployment-message');
+                const deployButton = document.querySelector('#ejemplo-asistente .example-action-button');
+                if (deploymentBar) {
+                    deploymentBar.style.width = '0%';
+                    deploymentBar.textContent = '0%';
+                    deploymentStatus.textContent = 'Estado: Listo para iniciar despliegue.';
+                    deploymentMessage.style.display = 'none';
+                    deployButton.disabled = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

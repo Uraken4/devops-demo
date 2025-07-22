@@ -1,17 +1,182 @@
 <!DOCTYPE html>
-<html>
-<Test GitHub Actions>
-    <title>DevOps Demo</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Tools - Tu Puerta al Futuro del Desarrollo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #1e3c72;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="password"]:focus, textarea:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 5px rgba(42, 82, 152, 0.5);
+            outline: none;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #2a5298;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1e3c72;
+            transform: translateY(-3px);
+        }
+        .slogan {
+            font-style: italic;
+            color: #555;
+            margin: 10px 0;
+        }
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to my DevOps Demo</h1>
-    <p>Fetching message from API...</p>
-    <div id="message"></div>
+    <header>
+        <h1>DevOps Tools - Revoluciona tu Flujo de Trabajo</h1>
+        <!-- Botón de login/registro eliminado -->
+    </header>
+    <main>
+        <div class="login-container">
+            <svg class="logo" viewBox="0 0 100 100">
+                <path d="M50 15 L90 35 L90 75 L50 95 L10 75 L10 35 Z" fill="none" stroke="#2a5298" stroke-width="2"/>
+                <path d="M50 15 L50 55 L90 75" fill="none" stroke="#2a5298" stroke-width="2"/>
+                <path d="M50 55 L10 75" fill="none" stroke="#2a5298" stroke-width="2"/>
+                <path d="M50 55 L50 95" fill="none" stroke="#2a5298" stroke-width="2"/>
+            </svg>
+            <h2>¡Contáctanos para Transformar tu DevOps!</h2>
+            <p class="slogan">"Optimización, eficiencia y poder en tus manos."</p>
+            <p>Completa el formulario para descubrir cómo nuestras herramientas pueden optimizar tus procesos.</p>
+            <form id="contact-form">
+                <label for="name">Nombre o Razón Social *</label>
+                <input type="text" id="name" name="name" placeholder="Ingresa tu nombre o empresa" required>
+                <label for="activity">Actividad que Realizas *</label>
+                <input type="text" id="activity" name="activity" placeholder="Ej. Desarrollo de software, consultoría" required>
+                <label for="email">Correo Electrónico *</label>
+                <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
+                <label for="phone">Número de Teléfono</label>
+                <input type="tel" id="phone" name="phone" placeholder="Ingresa tu teléfono (opcional)">
+                <label for="description">¿Qué te gustaría solucionar?</label>
+                <textarea id="description" name="description" placeholder="Describe tus necesidades (opcional)"></textarea>
+                <button type="submit">Enviar y Explorar Herramientas</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025 DevOps Tools. Potenciando el futuro del desarrollo. By Orson Terán</p>
+    </footer>
+
     <script>
-        fetch('/api/message')
-            .then(response => response.json())
-            .then(data => document.getElementById('message').innerText = data.message)
-            .catch(error => console.error('Error:', error));
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lógica para el formulario de CONTACTO: Ahora solo redirige a tools.html
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // Previene el envío normal del formulario
+
+                // Opcional: Si aún quieres enviar los datos de contacto al backend,
+                // puedes descomentar el siguiente bloque. La redirección ocurrirá de todas formas.
+                /*
+                const formData = new FormData(this);
+                const urlEncodedData = new URLSearchParams(formData);
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        body: urlEncodedData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    });
+                    if (!response.ok) {
+                        const result = await response.json();
+                        console.error('Error al enviar contacto (backend):', result.error || 'Desconocido');
+                        alert(result.error || "Error al enviar el contacto.");
+                    } else {
+                        alert("Mensaje de contacto enviado.");
+                    }
+                } catch (error) {
+                    console.error('Error de red al enviar contacto:', error);
+                    alert('No se pudo conectar con el servidor para enviar el mensaje.');
+                }
+                */
+
+                // Redirige incondicionalmente a tools.html
+                setTimeout(() => {
+                    window.location.href = '/tools.html';
+                }, 500); // Pequeño retraso para que el usuario perciba la acción
+            });
+            
+            // Toda la lógica de modales de registro/login, botones de cerrar, y cambio entre formularios
+            // ha sido eliminada.
+        });
     </script>
 </body>
 </html>
