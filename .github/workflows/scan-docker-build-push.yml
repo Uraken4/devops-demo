@@ -32,7 +32,8 @@ jobs:
       - name: Análisis de Composición (SCA) y SAST con Snyk
         # Escanea dependencias y código por vulnerabilidades conocidas.
         uses: snyk/actions/python@master
-        with:
+        with: 
+          working-directory: ./backend
           args: --scan-args="--json-file-output=snyk-python.json"
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
